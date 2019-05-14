@@ -1,5 +1,5 @@
 require("dotenv").config();
-var keys = require('./javascript/keys');
+var keys = require('./keys');
 var Spotify = require('node-spotify-api');
 //added to format table 
 var cTable = require('console.table');
@@ -28,9 +28,9 @@ if (process.argv[2] == 'concert-this' ) {
         var result  =  JSON.parse(body)[0];
         console.log(`
         ---------------------------------------------------
-        "Venue name: "    ${result.venue.name}
-        "Venue location " ${result.venue.city}
-        "Date of Event "  ${moment(result.datetime).format("MM/DD/YYYY")}
+        Venue name:    ${result.venue.name}
+        Venue location: ${result.venue.city}
+        Date of Event: ${moment(result.datetime).format("MM/DD/YYYY")}
         ---------------------------------------------------
         `);
        
@@ -50,7 +50,7 @@ if (process.argv[2] == 'concert-this' ) {
         songName = "The sign by Ace of Base";
     } 
    
-
+ 
      spotify.search({ type: 'track', query: songName, limit: 10  }, function(err, data) {
             if (err) {
             return console.log('Error occurred: ' + err);
@@ -76,13 +76,6 @@ if (process.argv[2] == 'concert-this' ) {
        
     });
 
-
-
-
-
-
-
-
 // If no song is provided then your program will default to "The Sign" by Ace of Base.
 } else if ( process.argv[2] == 'movie-this') {
     var movieName = process.argv.slice(3).join(" ");
@@ -94,14 +87,18 @@ if (process.argv[2] == 'concert-this' ) {
     request('http://www.omdbapi.com/?i=tt3896198&apikey=55e8eecb&t=' + process.argv[3], function (error, response, body) {
         
         var result  =  JSON.parse(body);
-        console.log("Title :" + result.Title);
-        console.log("Year :" + result.Released);
-        console.log("IMDB Rating :" + result.imdbRating );
-        console.log("Rotten Tomatoes :" + result.Ratings[1].Value);
-        console.log("Country :" +  result.Country);
-        console.log("Language :" + result.Language);
-        console.log("Movie Plot :" + result.Plot);
-        console.log("Actors :" +  result.Actors);
+        console.log(`
+        -------------------------------------------
+        Title:              ${result.Title}
+        Year:               ${result.Released}
+        IMDB Rating:        ${result.imdbRating}
+        Rotten Tomatoes:    ${result.Ratings}
+        Country:            ${result.Country}
+        Language:           ${result.Language}
+        Movie Plot:         ${request.Plot}
+        Actors:             ${request.Actors}
+        -------------------------------------------
+        `)
 
     });
 
